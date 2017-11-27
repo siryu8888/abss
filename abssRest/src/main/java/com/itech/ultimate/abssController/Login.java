@@ -1,10 +1,13 @@
 package com.itech.ultimate.abssController;
 
 
+import io.jsonwebtoken.CompressionCodecs;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 import java.security.Key;
+
+import com.itech.ultimate.helper.DateHelper;
 
 public class Login {
 	
@@ -23,7 +26,9 @@ public class Login {
     this.password = pass;
     
     	this.token = Jwts.builder()
-    	  .setSubject("Joe")
+    	  .setSubject(username)
+    	  .setIssuedAt(DateHelper.getCurrentDate())
+//    	  .compressWith(CompressionCodecs.DEFLATE)
     	  .signWith(SignatureAlgorithm.HS512, key)
     	  .compact();
     }
